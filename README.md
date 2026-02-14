@@ -5,9 +5,11 @@ To better understand the application of AI to research-grade mathematics, resear
 This repository documents the work of an agentic AI system I assembled and tasked to solve questions 4, 6, and 10. All candidate solutions are presented alongside an AI-generated 'short summary' pdf for the reviewer's convenience. 
 
 ## Overview
-I ran questions 4, 6, and 10 through the pipeline (built around the automated Gemini 3.0 Pro API and the manual ChatGPT 5.2 Pro web interface) detailed below. The automated stage returned 'validated candidate solutions' for q4 and q10 but failed to find one for q6. The manual stage cleared that q10 candidate with revisions but indicated the q4 candidate was incomplete. No issues were raised for the revised q10 candidate.
+I ran questions 4, 6, and 10 through the pipeline (built around the automated Gemini 3.0 Pro API and the manual ChatGPT 5.2 Pro web interface) detailed below. The automated stage returned 'validated candidate solutions' for q4 and q10 but failed to find one for q6. The manual stage cleared that q10 candidate with revisions but indicated the q4 candidate was incomplete. 
 
 System logs reveal that a candidate attained one 'validated' result for q6 (it requires two to pass this stage). I moved this candidate to the manual stage as well, although both the automated *and* manual stage indicated this candidate was incomplete.
+
+No issues were raised for the revised q10 candidate.
 
 Additionally, I ran questions q4, q6, and q10 entirely through the Claude user interface (Opus 4.6, max reasoning). The interface crashed and was unrecoverable for q6, but I have included the outputs from q4 (*"a powerful partial result"*) and q10 (*"I successfully solved the problem"*) here as well. 
 
