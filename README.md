@@ -1,6 +1,6 @@
 ## What Is This
 
-To better understand the application of AI to research-grade mathematics, researchers published [first proof](https://arxiv.org/html/2602.05192v1), a collection of ten questions from their personal work which have been solved privately but are not yet public. They invited the community to attempt to solve them with AI before the solutions are released (at 11:59 PM PT on February 13th).
+To better understand the application of AI to research-grade mathematics, researchers published [first proof](https://1stproof.org/), a collection of ten questions from their personal work which have been solved privately but are not yet public. They invited the community to attempt to solve them with AI before the solutions are released (at 11:59 PM PT on February 13th).
 
 This repository documents the work of an agentic AI system I assembled and tasked to solve questions 4, 6, and 10. All candidate solutions are presented alongside an AI-generated 'short summary' pdf for the reviewer's convenience. 
 
@@ -107,6 +107,11 @@ The chat interface for runs conducted entirely through the Claude web interface 
 The raw logs detailing pipeline runs for q4, q6, and q10 are shared in `/pipeline-logs`.
 
 ## Results
+| Question | Automated Pipeline (Gemini 3.0 Pro) | Manual Stage (GPT-5.2 Pro) | Claude Opus 4.6 |
+|----------|---|---|---|
+| Q4 | Validated Candidate | Incomplete | *"Powerful Partial Result"* |
+| Q6 | Failed (1/2 validations) | Incomplete | Crashed & Unrecoverable |
+| Q10 | Validated Candidate | Cleared with revisions | *"Successfully Solved"* |
 
 #### Manual Stage Accuracy Indicators
 At the second manual step, ChatGPT 5.2 Pro indicated that the candidates for q4 and log-recovered q6 were incomplete. I'll note that in my experience, AI tools are capable of both false positives *and* false negatives when working with formal math. 
