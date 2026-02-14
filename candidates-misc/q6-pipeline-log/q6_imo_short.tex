@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+
+% --- Page Layout ---
+\usepackage{geometry}
+\geometry{margin=1.25in}
+
+% --- Math Packages ---
+\usepackage{amsmath, amssymb, amsthm}
+
+% --- Colored Boxes ---
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% --- Box Colors ---
+\definecolor{boxblue}{RGB}{0,0,150}
+\definecolor{boxback}{RGB}{245,245,255}
+
+% --- Theorem Environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% --- Problem Box ---
+\newtcolorbox{problem}[1]{%
+  colback=boxback,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+% --- Result Box (breakable across pages) ---
+\newtcolorbox{result}[1]{%
+  colback=white,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced jigsaw,
+  breakable,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\begin{document}
+
+\begin{problem}{User Prompt}
+For a graph $G = (V, E)$, let $G_S = (V, E(S,S))$ denote the graph with the same vertex set, 
+but only the edges between vertices in $S$. Let $L$ be the Laplacian matrix of $G$ and let $L_S$ be the Laplacian of $G_S$. 
+I say that a set of vertices $S$ is $\epsilon$-light if the matrix $\epsilon L - L_S$ is positive semidefinite. 
+Does there exist a constant $c > 0$ so that for every graph $G$ and every $\epsilon$ between $0$ and $1$, $V$ contains an $\epsilon$-light subset $S$ of size at least $c \epsilon |V|$? 
+
+\end{problem}
+
+
+\begin{result}{System Short Summary:}
+\noindent
+Fix a connected graph $G=(V,E)$ with Laplacian $L$ and $\varepsilon\in(0,1)$.  The candidate approach starts by classifying edges by effective resistance
+$R_{\mathrm{eff}}(e)=b_e^\top L^\dagger b_e$.  By Foster's theorem $\sum_{e\in E}R_{\mathrm{eff}}(e)=|V|-1$, hence the set
+$E_{\mathrm{heavy}}:=\{e:\ R_{\mathrm{eff}}(e)>\varepsilon\}$ has size $|E_{\mathrm{heavy}}|<|V|/\varepsilon$.  Viewing $H=(V,E_{\mathrm{heavy}})$,
+a standard degree-pruning plus random-sampling/greedy-filtering argument yields an independent set $S$ in $H$ with
+$\mathbb E|S|=\Omega(\varepsilon |V|)$, and therefore (for some realization) $|S|\ge \varepsilon|V|/(8e)$ while $G[S]$ contains no heavy edges
+(i.e.\ every edge in $E(S)$ has $R_{\mathrm{eff}}(e)\le \varepsilon$).  This is the only place where Foster's theorem and the hypothesis
+$\varepsilon\in(0,1)$ are used: they bound the heavy-edge density so that a large independent set exists.
+
+\medskip
+\noindent
+The intended spectral conclusion is $L_S\preceq \varepsilon L$.  A useful linearization is
+$L_S\preceq \tfrac12\sum_{u\in S}L_u$ where $L_u=\sum_{v\sim u}b_{uv}b_{uv}^\top$ is the star Laplacian at $u$; thus it would suffice to find
+$S$ with $\sum_{u\in S}L_u\preceq 2\varepsilon L$.  However, ``no heavy edges'' does not imply $\varepsilon$-lightness: from the variational
+characterization of effective resistance one only gets the per-edge domination $b_e b_e^\top\preceq R_{\mathrm{eff}}(e)\,L$, so summing over
+$e\in E(S)$ yields $L_S\preceq(\sum_{e\in E(S)}R_{\mathrm{eff}}(e))\,L$, which requires control of the \emph{total} resistance mass of $E(S)$,
+not just $\max_{e\in E(S)}R_{\mathrm{eff}}(e)$.  In dense graphs (e.g.\ $K_n$) all edges have $R_{\mathrm{eff}}(e)=2/n\ll \varepsilon$ while
+$L_S\preceq \varepsilon L$ forces $|S|\le \varepsilon n$, so the candidate proof’s final step needs an additional, genuinely nontrivial
+matrix-selection/rounding lemma beyond Foster/independent-set considerations.
+
+\end{result}
+
+
+\end{document}

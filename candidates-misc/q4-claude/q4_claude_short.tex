@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+
+
+% --- Page Layout ---
+\usepackage{geometry}
+\geometry{margin=1.25in}
+
+% --- Math Packages ---
+\usepackage{amsmath, amssymb, amsthm}
+
+% --- Colored Boxes ---
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% --- Box Colors ---
+\definecolor{boxblue}{RGB}{0,0,150}
+\definecolor{boxback}{RGB}{245,245,255}
+
+% --- Theorem Environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% --- Problem Box ---
+\newtcolorbox{problem}[1]{%
+  colback=boxback,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+% --- Result Box (breakable across pages) ---
+\newtcolorbox{result}[1]{%
+  colback=white,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced jigsaw,
+  breakable,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\begin{document}
+
+
+
+\begin{problem}{Initial User Prompt}
+\{step1\_generator.md\}\\
+
+Let $p(x)$ and $q(x)$ be two monic polynomials of degree $n$:
+\[
+p(x) = \sum_{k=0}^n a_k x^{n-k} \quad \text{and} \quad q(x) = \sum_{k=0}^n
+b_k x^{n-k}
+\]
+where $a_0 = b_0 = 1$. Define $p \boxplus_n q(x)$ to be the polynomial
+\[
+(p \boxplus_n q)(x) = \sum_{k=0}^n c_k x^{n-k}
+\]
+where the coefficients $c_k$ are given by the formula:
+\[
+c_k = \sum_{i+j=k} \frac{(n-i)! (n-j)!}{n! (n-k)!} a_i b_j
+\]
+for $k = 0, 1, \dots, n$.
+For a monic polynomial $p(x)=\prod_{i\le n}(x- \lambda_i)$, define 
+$$\Phi_n(p):=\sum_{i\le n}(\sum_{j\neq i} \frac1{\lambda_i-\lambda_j})^2$$ and $\Phi_n(p):=\infty$ if $p$ has a multiple root.
+Is it true that if $p(x)$ and $q(x)$ are monic real-rooted polynomials of
+degree $n$, then
+$$\frac1{\Phi_n(p\boxplus_n q)} \ge \frac1{\Phi_n(p)}+\frac1{\Phi_n(q)}?$$
+\end{problem}
+
+
+\begin{result}{Opus 4.6 Short Summary:}
+
+We prove that for degree-$n$ real-rooted centered monic polynomials $p,q$ with distinct roots and finite free convolution $r = p\boxplus_n q$, the reciprocal Fisher information $1/\Phi_n$ (where $\Phi_n(p) = \sum_k f_k^2$, $f_k = \sum_{j\neq k}(\lambda_k - \lambda_j)^{-1}$) satisfies $\Phi_n(r)^{-1} \geq \Phi_n(p)^{-1} + \Phi_n(q)^{-1}$. For $n=2$ equality is immediate since $\Phi_2 = 1/(2a^2)$ for half-gap $a$, and the convolution adds variances. For $n=3$, the key observation is that $1/\Phi_3$ admits the closed form $-2c/9 - 3d^2/(2c^2)$ for a centered cubic $x^3+cx+d$, which decomposes into a \emph{linear} part in $c$ and a \emph{rational-quadratic} part $d^2/c^2$. Since $\boxplus_3$ acts additively on both $c$ and $d$ (the normalized coefficients $a_k/\binom{n}{k}$ are additive for $k\leq 3$), the linear terms cancel in the difference $\Phi_n(r)^{-1} - \Phi_n(p)^{-1} - \Phi_n(q)^{-1}$, and the inequality reduces to $(d_p+d_q)^2/(c_p+c_q)^2 \leq d_p^2/c_p^2 + d_q^2/c_q^2$, which after substituting $a=-c_p, b=-c_q>0$ is equivalent to $(a+b)^2(x^2+y^2) \geq (ax+by)^2$, i.e., $(bx-ay)^2 + 2ab(x^2+y^2)\geq 0$.
+
+For general $n\geq 4$, this approach breaks down because: (i) $a_k/\binom{n}{k}$ is no longer additive for $k\geq 4$, so cross-terms appear; (ii) $1/\Phi_n$ is not concave in the coefficients, ruling out Jensen-type arguments; and (iii) the inequality is not pointwise over Haar unitaries in the random matrix representation $r = \mathbb{E}_U[\det(xI - A - UBU^*)]$. We establish structural tools toward a general proof: a finite free de~Bruijn identity showing that roots of $r_t = p\boxplus_n s_t$ (Hermite heat flow) evolve by the Dyson equation $\dot\gamma_k = f_k$, yielding $(1/\Phi_n)' = 2S/\Phi_n^2 \geq 0$ where $S = \sum_{i<j}(f_i-f_j)^2/(\gamma_i-\gamma_j)^2$ is a Dirichlet form; an algebraic identity $\sum_{i<j}(f_i-f_j)/(\lambda_i-\lambda_j) = \Phi_n$; and finite free subordination $G_r(z) = G_p(\omega_1(z))$ with $\omega_1+\omega_2 = z + 1/G_r(z)$. The inequality is verified numerically (180{,}000 tests, $n\leq 10$, zero violations), and the most promising path to a general proof is establishing the Dirichlet form bound $S \geq \Phi_n^2/[n(n-1)]$ along the heat flow, which numerical evidence supports with minimum ratio $\approx 1$.
+\end{result}
+
+\end{document}

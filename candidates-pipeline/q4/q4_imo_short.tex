@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+
+% --- Page Layout ---
+\usepackage{geometry}
+\geometry{margin=1.25in}
+
+% --- Math Packages ---
+\usepackage{amsmath, amssymb, amsthm}
+
+% --- Colored Boxes ---
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% --- Box Colors ---
+\definecolor{boxblue}{RGB}{0,0,150}
+\definecolor{boxback}{RGB}{245,245,255}
+
+% --- Theorem Environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+% --- Problem Box ---
+\newtcolorbox{problem}[1]{%
+  colback=boxback,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+% --- Result Box (breakable across pages) ---
+\newtcolorbox{result}[1]{%
+  colback=white,
+  colframe=boxblue,
+  fonttitle=\bfseries\large,
+  title={#1},
+  sharp corners,
+  enhanced jigsaw,
+  breakable,
+  attach boxed title to top left={yshift=-2mm, xshift=2mm},
+  boxed title style={colframe=boxblue, colback=boxblue},
+  before skip=15pt plus 2pt,
+  after skip=15pt plus 2pt,
+  top=10pt, bottom=10pt, left=10pt, right=10pt
+}
+
+\begin{document}
+
+
+\begin{problem}{User Prompt}
+Let $p(x)$ and $q(x)$ be two monic polynomials of degree $n$:
+\[
+p(x) = \sum_{k=0}^n a_k x^{n-k} \quad \text{and} \quad q(x) = \sum_{k=0}^n
+b_k x^{n-k}
+\]
+where $a_0 = b_0 = 1$. Define $p \boxplus_n q(x)$ to be the polynomial
+\[
+(p \boxplus_n q)(x) = \sum_{k=0}^n c_k x^{n-k}
+\]
+where the coefficients $c_k$ are given by the formula:
+\[
+c_k = \sum_{i+j=k} \frac{(n-i)! (n-j)!}{n! (n-k)!} a_i b_j
+\]
+for $k = 0, 1, \dots, n$.
+For a monic polynomial $p(x)=\prod_{i\le n}(x- \lambda_i)$, define 
+$$\Phi_n(p):=\sum_{i\le n}(\sum_{j\neq i} \frac1{\lambda_i-\lambda_j})^2$$ and $\Phi_n(p):=\infty$ if $p$ has a multiple root.
+Is it true that if $p(x)$ and $q(x)$ are monic real-rooted polynomials of
+degree $n$, then
+$$\frac1{\Phi_n(p\boxplus_n q)} \ge \frac1{\Phi_n(p)}+\frac1{\Phi_n(q)}?$$
+
+\end{problem}
+
+
+\begin{result}{System Short Summary:}
+Let $\boxplus_n$ be the (symmetric additive) finite free convolution on monic degree-$n$ polynomials, equivalently the operation appearing in Marcus--Spielman--Srivastava \cite[Def.~1.1]{MSS} and preserving real-rootedness \cite[Thm.~1.3]{MSS}. For a simple-rooted $p(x)=\prod_{i=1}^n(x-\lambda_i)$, the key analytic identity is the log-derivative evaluation
+\[
+\frac{p''(\lambda_i)}{p'(\lambda_i)}=2\sum_{j\neq i}\frac{1}{\lambda_i-\lambda_j},
+\]
+which rewrites $\Phi_n(p)=\frac14\sum_i\big(\frac{p''(\lambda_i)}{p'(\lambda_i)}\big)^2$ and, by a cancellation over triples, yields the more structural formula
+\[
+\Phi_n(p)=2\sum_{1\le i<j\le n}\frac{1}{(\lambda_i-\lambda_j)^2},
+\]
+i.e.\ $\Phi_n$ is twice the inverse-square gap energy of the root configuration. The real-rootedness hypothesis ensures all gaps are real and $\Phi_n(p)\in(0,\infty]$ is well-defined.
+
+For $n=2$, $\Phi_2(p)=2/\Delta(p)$ where $\Delta$ is the discriminant, and a direct coefficient computation from \cite[Def.~1.1]{MSS} shows $\Delta(p\boxplus_2 q)=\Delta(p)+\Delta(q)$, hence $\frac1{\Phi_2(p\boxplus_2 q)}=\frac1{\Phi_2(p)}+\frac1{\Phi_2(q)}$ (equality). For $n=3$, one can express $\Phi_3$ exactly as $\Phi_3(x^3+ux^2+vx+w)=2(u^2-3v)^2/\Delta$ (a symmetric-polynomial numerator over the discriminant), and an explicit example $p(x)=x^3-3x+1$, $q(x)=x^3-3x$ yields strict superadditivity. A separate computation using the Hermite ODE and the stability of Hermites under $\boxplus_n$ (cf.\ \cite[\S1.1]{MSS}) gives equality for the Hermite family. Beyond these cases, the note does \emph{not} supply (nor cite) a general theorem implying $\frac1{\Phi_n(p\boxplus_n q)}\ge \frac1{\Phi_n(p)}+\frac1{\Phi_n(q)}$ for all $n$; cf.\ Gribinski \cite[Conj.~1]{Gri19} for related finite-degree entropy-power conjectures.
+
+
+\end{result}
+
+
+
+
+\end{document}
