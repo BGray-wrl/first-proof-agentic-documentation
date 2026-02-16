@@ -13,7 +13,7 @@ No issues were raised for the revised q10 candidate.
 
 Additionally, I ran questions q4, q6, and q10 entirely through the Claude user interface (Opus 4.6, max reasoning). The interface crashed and was unrecoverable for q6, but I have included the outputs from q4 (*"a powerful partial result"*) and q10 (*"I successfully solved the problem"*) here as well. 
 
-**Addendum 2/15:** *Autograder evaluation, comparing candidates against decrypted ground-truth solution files, aligned with manual stage assessments. In particular, both q10 solutions were graded 7/7 (correct) while no other candidates progressed beyond 1/7 (partial).*
+***Addendum 2/15:** Autograder evaluation, comparing candidates against decrypted ground-truth solution files, aligned with manual stage assessments. In particular, both q10 solutions were graded 7/7 (correct) while no other candidates progressed beyond 1/7 (partial).*
 
 #### See candidate summaries for
 - [Question 4](candidates-pipeline/q4/q4_short.pdf) and [Question 10](candidates-pipeline/q10/q10_short.pdf) on the full pipeline, 
@@ -129,7 +129,7 @@ and the logged-candidate Q6:
 No issues were raised in the chat-revised candidate for q10. 
 
 
-#### Autograder Results (**Updated 2/15**)
+#### (**Updated 2/15**) *Autograder Results*
 
 Once ground-truth solutions were decrypted, I ran these candidate solutions through the ProofAutoGrader detailed in DeepMind's *[Towards Robust Mathematical Reasoning](https://arxiv.org/pdf/2511.01846)*. This automated grading system has been shown to correlate well (Pearson $r = 0.96$) with human grading on mathematical proofs. 
 
