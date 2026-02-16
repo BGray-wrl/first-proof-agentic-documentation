@@ -9,11 +9,13 @@ I ran questions 4, 6, and 10 through the pipeline (built around the automated Ge
 
 System logs reveal that a candidate attained one 'validated' result for q6 (it requires two to pass this stage). I moved this candidate to the manual stage as well, although both the automated *and* manual stage indicated this candidate was incomplete.
 
-No issues were raised for the revised q10 candidate.
+No issues were raised for the revised q10 candidate. 
 
 Additionally, I ran questions q4, q6, and q10 entirely through the Claude user interface (Opus 4.6, max reasoning). The interface crashed and was unrecoverable for q6, but I have included the outputs from q4 (*"a powerful partial result"*) and q10 (*"I successfully solved the problem"*) here as well. 
 
-#### See summary results for
+**Addendum 2/15:** *Autograder evaluation, comparing candidates against decrypted ground-truth solution files, aligned with manual stage assessments. In particular, both q10 solutions were graded 7/7 (correct) while no other candidates progressed beyond 1/7 (partial).*
+
+#### See candidate summaries for
 - [Question 4](candidates-pipeline/q4/q4_short.pdf) and [Question 10](candidates-pipeline/q10/q10_short.pdf) on the full pipeline, 
 - the log-recovered candidate result for [Question 6](candidates-misc/q6-pipeline-log/q6_short.pdf), and
 - Claude's process on [Question 4](candidates-misc/q4-claude/q4_claude_short.pdf) and [Question 10](candidates-misc/q10-claude/q10_claude_short.pdf).
@@ -127,12 +129,18 @@ and the logged-candidate Q6:
 No issues were raised in the chat-revised candidate for q10. 
 
 
-#### DeepMind Autograder
+#### Autograder Results (**Updated 2/15**)
 
-Once solutions are decrypted, I plan to run these candidate solutions through the ProofAutoGrader detailed in DeepMind's *[Towards Robust Mathematical Reasoning](https://arxiv.org/pdf/2511.01846)*. This automated grading system was shown to correlate well (Pearson $r = 0.96$) with human grading on mathematical proofs. 
+Once ground-truth solutions were decrypted, I ran these candidate solutions through the ProofAutoGrader detailed in DeepMind's *[Towards Robust Mathematical Reasoning](https://arxiv.org/pdf/2511.01846)*. This automated grading system has been shown to correlate well (Pearson $r = 0.96$) with human grading on mathematical proofs. 
 
+| Source | Q4 | Q6 | Q10 |
+|--------|----|----|-----|
+| Pipeline + Manual | 1/7 | 0/7 | **7/7** |
+| Claude Opus 4.6 | 0/7 | — | **7/7** |
 
-*Space left unassigned for automated grading results*
+Both the pipeline and Claude Web candidates for Q10 received perfect scores. The pipeline's Q4 candidate received partial credit (1/7) for proving special cases ($n=2$, Hermite) without establishing the general result. Pipeline Q6 and Claude Q4 candidates scored 0/7. I find it encouraging to see that the autograder scores aligned with manual stage assessments across all candidates.
+
+Full grading reports are available in the candidate folders. The minimally adapted grading prompt can be found in [`/prompt-specs`](prompt-specs/grader.md).
 
 
 #### Disclaimer
